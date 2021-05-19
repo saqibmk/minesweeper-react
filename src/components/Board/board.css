@@ -1,0 +1,25 @@
+.Board {
+  background: #c2c2c2;
+  width: 400px;
+}
+
+.Header {
+  background: red;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Playground {
+  background: blue;
+}
+
+.Emoji {
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

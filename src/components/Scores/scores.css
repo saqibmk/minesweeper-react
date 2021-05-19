@@ -1,0 +1,10 @@
+.Scores {
+  width: 100px;
+  height: 50px;
+  color: red;
+  background: black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 40px;
+}
