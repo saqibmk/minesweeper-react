@@ -5,3 +5,7 @@
   border: 1px black;
   border-style: solid;
 }
+
+.Cell.open {
+  background: red;
+}

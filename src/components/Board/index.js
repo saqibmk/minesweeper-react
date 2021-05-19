@@ -19,7 +19,17 @@ function Board() {
         <Scores score={"000"}></Scores>
       </div>
       <div className="Playground">
-        {cells.map((row, i) => row.map((cell, cIndex) => <Cell />))}
+        {cells.map((row, i) =>
+          row.map((cell, cIndex) => (
+            <Cell
+              key={`${i}-${cIndex}`}
+              row={i}
+              col={cIndex}
+              value={cell.value}
+              isClosed={cell.isClosed}
+            />
+          ))
+        )}
       </div>
     </div>
   );
