@@ -1,6 +1,6 @@
 .Board {
   background: #c2c2c2;
-  width: 400px;
+  width: 300px;
 }
 
 .Header {
@@ -13,6 +13,8 @@
 
 .Playground {
   background: blue;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .Emoji {
