@@ -4,6 +4,9 @@
   background: yellow;
   border: 1px black;
   border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Cell.open {
