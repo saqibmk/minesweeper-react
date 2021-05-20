@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./board.css";
 import Scores from "../Scores";
 import Cell from "../Cell";
+import { NUMBER_OF_MINES } from "../../constants";
 
 import { cellMaker } from "../../logic/cells";
-import { number } from "prop-types";
 
 const showCell = (cells, rowIndex, columnIndex) => {
   const cellsCopy = cells.slice();
@@ -59,7 +59,6 @@ function Board() {
 
   useEffect(() => {
     if (win) {
-      console.log("here won");
       setGameStarted(false);
     }
   }, [win]);
@@ -113,13 +112,13 @@ function Board() {
   return (
     <div className="Board">
       <div className="Header">
-        <Scores score={"000"}></Scores>
+        <Scores score={`${NUMBER_OF_MINES} mines`}></Scores>
         <div className="Emoji" onClick={handleEmojiClick}>
           <span role="img" aria-label="emoji">
             😆
           </span>
         </div>
-        <Scores score={gameTime}></Scores>
+        <Scores score={`${gameTime} sec`}></Scores>
       </div>
       <div className="Playground">
         {cells.map((row, i) =>
