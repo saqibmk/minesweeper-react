@@ -4,6 +4,7 @@ import Scores from "../Scores";
 import Cell from "../Cell";
 
 import { cellMaker } from "../../logic/cells";
+import { number } from "prop-types";
 
 const showCell = (cells, rowIndex, columnIndex) => {
   const cellsCopy = cells.slice();
@@ -35,6 +36,8 @@ function Board() {
   const [cells, setCell] = useState(cellMaker());
   const [gameTime, setGameTime] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [win, setWin] = useState(false);
 
   useEffect(() => {
     if (gameStarted) {
@@ -48,15 +51,62 @@ function Board() {
     }
   }, [gameStarted, gameTime]);
 
+  useEffect(() => {
+    if (gameOver) {
+      setGameStarted(false);
+    }
+  }, [gameOver]);
+
+  useEffect(() => {
+    if (win) {
+      console.log("here won");
+      setGameStarted(false);
+    }
+  }, [win]);
+
+  const showAllBombs = (currentCells) => {
+    console.log(currentCells);
+    return currentCells.map((row) =>
+      row.map((cell) => {
+        if (cell.value === -1)
+          return {
+            ...cell,
+            isClosed: false,
+          };
+        return cell;
+      })
+    );
+  };
+
   const handleCellClick = (r, c) => {
     if (!gameStarted) setGameStarted(true);
-
+    if (cells[r][c].value === -1) {
+      setGameOver(true);
+      setCell(showAllBombs(cells));
+      return;
+    }
     setCell(showCell(cells, r, c));
+
+    let hasMoreOpenCells = false;
+
+    for (let row = 0; row < 10; row++) {
+      for (let col = 0; col < 10; col++) {
+        if (cells[row][col].value !== -1 && cells[row][col].isClosed) {
+          hasMoreOpenCells = true;
+          break;
+        }
+      }
+    }
+
+    if (!hasMoreOpenCells) {
+      setWin(true);
+    }
   };
 
   const handleEmojiClick = () => {
     setGameStarted(false);
     setGameTime(0);
+    setGameOver(false);
     setCell(cellMaker());
   };
 

@@ -28,7 +28,7 @@ export const cellMaker = () => {
 
   // generate bombs
   var bombsPlaced = 0;
-  while (bombsPlaced < 20) {
+  while (bombsPlaced < 3) {
     const row = Math.floor(Math.random() * 10);
     const col = Math.floor(Math.random() * 10);
 
