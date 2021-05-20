@@ -48,3 +48,29 @@ export const cellMaker = () => {
 
   return cells;
 };
+
+export const showCell = (cells, rowIndex, columnIndex) => {
+  const cellsCopy = cells.slice();
+  cellsCopy[rowIndex][columnIndex].isClosed = false;
+  if (cellsCopy[rowIndex][columnIndex].value === 0) {
+    floodFillShow(cellsCopy, rowIndex, columnIndex);
+  }
+  return cellsCopy;
+};
+
+const floodFillShow = (cells, rowIndex, columnIndex) => {
+  const currentCells = cells.slice();
+  for (var xoff = -1; xoff <= 1; xoff++) {
+    for (var yoff = -1; yoff <= 1; yoff++) {
+      const i = xoff + rowIndex;
+      const y = yoff + columnIndex;
+      if (i > -1 && i < SQUARE_SIZE && y > -1 && y < SQUARE_SIZE) {
+        var neighbour = currentCells[i][y];
+        if (neighbour.value !== -1 && neighbour.isClosed === true) {
+          showCell(currentCells, i, y);
+        }
+      }
+    }
+  }
+  return currentCells;
+};

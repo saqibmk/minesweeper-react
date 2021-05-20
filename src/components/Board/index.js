@@ -3,42 +3,15 @@ import "./board.css";
 import Scores from "../Scores";
 import Cell from "../Cell";
 import { NUMBER_OF_MINES, SQUARE_SIZE } from "../../constants";
-
-import { cellMaker } from "../../logic/cells";
-
-const showCell = (cells, rowIndex, columnIndex) => {
-  const cellsCopy = cells.slice();
-  cellsCopy[rowIndex][columnIndex].isClosed = false;
-  if (cellsCopy[rowIndex][columnIndex].value === 0) {
-    floodFillShow(cellsCopy, rowIndex, columnIndex);
-  }
-  return cellsCopy;
-};
-
-const floodFillShow = (cells, rowIndex, columnIndex) => {
-  const currentCells = cells.slice();
-  for (var xoff = -1; xoff <= 1; xoff++) {
-    for (var yoff = -1; yoff <= 1; yoff++) {
-      const i = xoff + rowIndex;
-      const y = yoff + columnIndex;
-      if (i > -1 && i < SQUARE_SIZE && y > -1 && y < SQUARE_SIZE) {
-        var neighbour = currentCells[i][y];
-        if (neighbour.value !== -1 && neighbour.isClosed === true) {
-          showCell(currentCells, i, y);
-        }
-      }
-    }
-  }
-  return currentCells;
-};
+import { cellMaker, showCell } from "../../logic/cells";
 
 function Board() {
   const [cells, setCell] = useState(cellMaker());
+  const [currentEmoji, setCurrentEmoji] = useState("🥸");
   const [gameTime, setGameTime] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [win, setWin] = useState(false);
-  const [currentEmoji, setCurrentEmoji] = useState("🥸");
 
   useEffect(() => {
     if (gameStarted) {
@@ -81,6 +54,7 @@ function Board() {
   };
 
   const handleCellClick = (r, c) => {
+    if (gameOver || win) return;
     if (!gameStarted) setGameStarted(true);
     if (cells[r][c].value === -1) {
       setGameOver(true);

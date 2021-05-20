@@ -1,7 +1,8 @@
 import React from "react";
 import "./cell.css";
+import PropTypes from "prop-types";
 
-const Cell = ({ row, col, value, isClosed, isFlagged, onClick, isMine }) => {
+const Cell = ({ row, col, value, isClosed, onClick, isMine }) => {
   const renderCells = () => {
     if (!isClosed) {
       if (value === -1)
@@ -22,6 +23,15 @@ const Cell = ({ row, col, value, isClosed, isFlagged, onClick, isMine }) => {
       {renderCells()}
     </div>
   );
+};
+
+Cell.propTypes = {
+  row: PropTypes.number,
+  col: PropTypes.number,
+  value: PropTypes.number,
+  isClosed: PropTypes.bool,
+  onClick: PropTypes.func,
+  isMine: PropTypes.bool,
 };
 
 export default Cell;

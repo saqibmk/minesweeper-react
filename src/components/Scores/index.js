@@ -8,6 +8,6 @@ const Scores = ({ score }) => {
 };
 
 Scores.propTypes = {
-  score: PropTypes.number,
+  score: PropTypes.string,
 };
 export default Scores;
