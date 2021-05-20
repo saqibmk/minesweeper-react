@@ -40,7 +40,6 @@ function Board() {
   }, [win]);
 
   const showAllMines = (currentCells) => {
-    console.log(currentCells);
     return currentCells.map((row) =>
       row.map((cell) => {
         if (cell.value === -1)
@@ -61,7 +60,7 @@ function Board() {
       setCell(showAllMines(cells));
       return;
     }
-    setCell(showCell(cells, r, c));
+    setCell(showCell(cells, r, c, SQUARE_SIZE));
 
     let hasMoreOpenCells = false;
 
