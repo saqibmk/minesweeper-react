@@ -66,7 +66,7 @@ function Board() {
     }
   }, [win]);
 
-  const showAllBombs = (currentCells) => {
+  const showAllMines = (currentCells) => {
     console.log(currentCells);
     return currentCells.map((row) =>
       row.map((cell) => {
@@ -84,7 +84,7 @@ function Board() {
     if (!gameStarted) setGameStarted(true);
     if (cells[r][c].value === -1) {
       setGameOver(true);
-      setCell(showAllBombs(cells));
+      setCell(showAllMines(cells));
       return;
     }
     setCell(showCell(cells, r, c));
@@ -134,6 +134,7 @@ function Board() {
               value={cell.value}
               isClosed={cell.isClosed}
               onClick={handleCellClick}
+              isMine={cell.value === -1}
             />
           ))
         )}

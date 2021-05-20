@@ -12,5 +12,9 @@
 }
 
 .Cell.open {
-  background: #ff7979;
+  background: #badc58;
+}
+
+.Cell.open.mine {
+  background: #eb4d4b;
 }

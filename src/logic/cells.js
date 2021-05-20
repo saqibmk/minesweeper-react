@@ -28,16 +28,15 @@ export const cellMaker = () => {
     }
   }
 
-  // generate bombs
-  var bombsPlaced = 0;
-  while (bombsPlaced < NUMBER_OF_MINES) {
+  var minesPlaced = 0;
+  while (minesPlaced < NUMBER_OF_MINES) {
     const row = Math.floor(Math.random() * SQUARE_SIZE);
     const col = Math.floor(Math.random() * SQUARE_SIZE);
 
     const currentCell = cells[row][col];
     if (currentCell.value !== -1) {
       cells[row][col].value = -1;
-      bombsPlaced++;
+      minesPlaced++;
     }
   }
 
