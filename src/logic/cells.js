@@ -6,7 +6,7 @@ export const cellMaker = () => {
       for (var yoff = -1; yoff <= 1; yoff++) {
         const i = xoff + rowIndex;
         const y = yoff + columnIndex;
-        if (i > -1 && i < 5 && y > -1 && y < 5) {
+        if (i > -1 && i < 10 && y > -1 && y < 10) {
           var neighbour = cells[i][y];
           if (neighbour.value === -1) total++;
         }
@@ -16,21 +16,21 @@ export const cellMaker = () => {
   };
   let cells = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     cells.push([]);
-    for (let x = 0; x < 5; x++) {
+    for (let x = 0; x < 10; x++) {
       cells[i].push({
         value: 0, // -1, 0, 1...8
-        isClosed: false,
+        isClosed: true,
       });
     }
   }
 
   // generate bombs
   var bombsPlaced = 0;
-  while (bombsPlaced < 5) {
-    const row = Math.floor(Math.random() * 5);
-    const col = Math.floor(Math.random() * 5);
+  while (bombsPlaced < 20) {
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 10);
 
     const currentCell = cells[row][col];
     if (currentCell.value !== -1) {
@@ -39,8 +39,8 @@ export const cellMaker = () => {
     }
   }
 
-  for (let i = 0; i < 5; i++) {
-    for (let x = 0; x < 5; x++) {
+  for (let i = 0; i < 10; i++) {
+    for (let x = 0; x < 10; x++) {
       cells[i][x].value = calculateNeighbour(i, x);
     }
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import "./cell.css";
 
-const Cell = ({ row, col, value, isClosed, isFlagged }) => {
+const Cell = ({ row, col, value, isClosed, isFlagged, onClick }) => {
   const renderCells = () => {
     if (!isClosed) {
       if (value === -1)
@@ -10,11 +10,17 @@ const Cell = ({ row, col, value, isClosed, isFlagged }) => {
             💣
           </span>
         );
+      if (value === 0) return null;
       return <div>{value}</div>;
     }
   };
   return (
-    <div className={`Cell ${isClosed ? "" : "open"}`}>{renderCells()}</div>
+    <div
+      onClick={() => onClick(row, col)}
+      className={`Cell ${isClosed ? "" : "open"}`}
+    >
+      {renderCells()}
+    </div>
   );
 };
 
