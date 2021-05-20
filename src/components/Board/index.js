@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./board.css";
 import Scores from "../Scores";
 import Cell from "../Cell";
-import { NUMBER_OF_MINES } from "../../constants";
+import { NUMBER_OF_MINES, SQUARE_SIZE } from "../../constants";
 
 import { cellMaker } from "../../logic/cells";
 
@@ -21,7 +21,7 @@ const floodFillShow = (cells, rowIndex, columnIndex) => {
     for (var yoff = -1; yoff <= 1; yoff++) {
       const i = xoff + rowIndex;
       const y = yoff + columnIndex;
-      if (i > -1 && i < 10 && y > -1 && y < 10) {
+      if (i > -1 && i < SQUARE_SIZE && y > -1 && y < SQUARE_SIZE) {
         var neighbour = currentCells[i][y];
         if (neighbour.value !== -1 && neighbour.isClosed === true) {
           showCell(currentCells, i, y);
@@ -38,6 +38,7 @@ function Board() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [win, setWin] = useState(false);
+  const [currentEmoji, setCurrentEmoji] = useState("🥸");
 
   useEffect(() => {
     if (gameStarted) {
@@ -54,12 +55,14 @@ function Board() {
   useEffect(() => {
     if (gameOver) {
       setGameStarted(false);
+      setCurrentEmoji("😵");
     }
   }, [gameOver]);
 
   useEffect(() => {
     if (win) {
       setGameStarted(false);
+      setCurrentEmoji("🥳");
     }
   }, [win]);
 
@@ -88,8 +91,8 @@ function Board() {
 
     let hasMoreOpenCells = false;
 
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 10; col++) {
+    for (let row = 0; row < SQUARE_SIZE; row++) {
+      for (let col = 0; col < SQUARE_SIZE; col++) {
         if (cells[row][col].value !== -1 && cells[row][col].isClosed) {
           hasMoreOpenCells = true;
           break;
@@ -106,6 +109,7 @@ function Board() {
     setGameStarted(false);
     setGameTime(0);
     setGameOver(false);
+    setCurrentEmoji("🥸");
     setCell(cellMaker());
   };
 
@@ -115,7 +119,7 @@ function Board() {
         <Scores score={`${NUMBER_OF_MINES} mines`}></Scores>
         <div className="Emoji" onClick={handleEmojiClick}>
           <span role="img" aria-label="emoji">
-            😆
+            {currentEmoji}
           </span>
         </div>
         <Scores score={`${gameTime} sec`}></Scores>

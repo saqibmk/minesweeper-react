@@ -1,3 +1,5 @@
+import { NUMBER_OF_MINES, SQUARE_SIZE } from "../constants";
+
 export const cellMaker = () => {
   const calculateNeighbour = (rowIndex, columnIndex) => {
     if (cells[rowIndex][columnIndex].value === -1) return -1;
@@ -6,7 +8,7 @@ export const cellMaker = () => {
       for (var yoff = -1; yoff <= 1; yoff++) {
         const i = xoff + rowIndex;
         const y = yoff + columnIndex;
-        if (i > -1 && i < 10 && y > -1 && y < 10) {
+        if (i > -1 && i < SQUARE_SIZE && y > -1 && y < SQUARE_SIZE) {
           var neighbour = cells[i][y];
           if (neighbour.value === -1) total++;
         }
@@ -16,11 +18,11 @@ export const cellMaker = () => {
   };
   let cells = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < SQUARE_SIZE; i++) {
     cells.push([]);
-    for (let x = 0; x < 10; x++) {
+    for (let x = 0; x < SQUARE_SIZE; x++) {
       cells[i].push({
-        value: 0, // -1, 0, 1...8
+        value: 0,
         isClosed: true,
       });
     }
@@ -28,9 +30,9 @@ export const cellMaker = () => {
 
   // generate bombs
   var bombsPlaced = 0;
-  while (bombsPlaced < 3) {
-    const row = Math.floor(Math.random() * 10);
-    const col = Math.floor(Math.random() * 10);
+  while (bombsPlaced < NUMBER_OF_MINES) {
+    const row = Math.floor(Math.random() * SQUARE_SIZE);
+    const col = Math.floor(Math.random() * SQUARE_SIZE);
 
     const currentCell = cells[row][col];
     if (currentCell.value !== -1) {
@@ -39,8 +41,8 @@ export const cellMaker = () => {
     }
   }
 
-  for (let i = 0; i < 10; i++) {
-    for (let x = 0; x < 10; x++) {
+  for (let i = 0; i < SQUARE_SIZE; i++) {
+    for (let x = 0; x < SQUARE_SIZE; x++) {
       cells[i][x].value = calculateNeighbour(i, x);
     }
   }
